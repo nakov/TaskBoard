@@ -1,0 +1,49 @@
+<resources>
+    <string name="app_name">TaskBoard - Android Client</string>
+    <string name="buttonConnectTitle">✓ Connect</string>
+    <string name="defaultApiUrl">http://10.0.2.2:5000/api/</string>
+    <string name="labelTaskBoardAPI">Connect to TaskBoard API:</string>
+    <string name="labelEnterKeyword">Enter a keyword for searching in the tasks:</string>
+    <string name="buttonSearch">⌕ Search</string>
+    <string name="labelTaskId">Task ID:</string>
+    <string name="labelTitle">Title:</string>
+    <string name="labelDescription">Description:</string>
+    <string name="labelBoardName">Board:</string>
+    <string name="labelOwner">Owner:</string>
+    <string name="buttonLogin">➔ Login</string>
+    <string name="buttonRegister">✓ Register</string>
+    <string name="buttonReload">⟳ Reload</string>
+    <string name="buttonAdd">✚ Add</string>
+    <string name="labelCreateNewTask">Create New Task</string>
+    <string name="buttonCancel">✕ Cancel</string>
+    <string name="buttonCreate">✓ Create</string>
+
+    <string name="loginTitle">Log In</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="email">Email</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="first_name">First Name</string>
+    <string name="last_name">Last Name</string>
+
+    <string name="registerTitle">Register</string>
+    <string name="usernameHint">Your username...</string>
+    <string name="emailHint">Your email...</string>
+    <string name="passwordHint">Your password...</string>
+    <string name="confirmPasswordHint">Your confirm password...</string>
+    <string name="firstNameHint">Your first name...</string>
+    <string name="lastNameHint">Your last name...</string>
+    <string name="enter_a_search_keyword">Enter a search keyword...</string>
+    <string name="created_on">Created On:</string>
+
+    <string name="board">Board:</string>
+
+    <string name="maxUsernameLength">15</string>
+    <string name="maxPasswordLength">20</string>
+    <string name="maxEmailLength">30</string>
+    <string name="maxFirstNameLength">15</string>
+    <string name="maxLastNameLength">15</string>
+    <string name="maxTitleLength">70</string>
+    <string name="maxDescriptionLength">1000</string>
+    <string name="maxKeywordLength">50</string>
+</resources>
