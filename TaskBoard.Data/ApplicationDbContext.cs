@@ -8,14 +8,16 @@ namespace TaskBoard.Data
 {
     public class ApplicationDbContext : IdentityDbContext<User>
     {
+        private bool seedDb = true;
         private User GuestUser { get; set; }
         private Board OpenBoard { get; set; }
         private Board InProgressBoard { get; set; }
         private Board DoneBoard { get; set; }
 
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options, bool seedDb = true)
             : base(options)
         {
+            this.seedDb = seedDb;
             this.Database.EnsureCreated();
         }
 
@@ -24,61 +26,64 @@ namespace TaskBoard.Data
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            builder
+            if (seedDb)
+            {
+                builder
                 .Entity<Task>()
                 .HasOne(t => t.Board)
                 .WithMany(b => b.Tasks)
                 .HasForeignKey(t => t.BoardId)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            SeedBoards();
-            builder
-                .Entity<Board>()
-                .HasData(this.OpenBoard, this.InProgressBoard, this.DoneBoard);
+                SeedBoards();
+                builder
+                    .Entity<Board>()
+                    .HasData(this.OpenBoard, this.InProgressBoard, this.DoneBoard);
 
-            SeedUsers();
-            builder.Entity<User>()
-                .HasData(this.GuestUser);
+                SeedUsers();
+                builder.Entity<User>()
+                    .HasData(this.GuestUser);
 
-            builder
-                .Entity<Task>()
-                .HasData(new Task()
-                {
-                    Id = 1,
-                    Title = "Improve CSS styles",
-                    Description = "Implement better styling for all public pages",
-                    CreatedOn = DateTime.Now.AddDays(-200),
-                    OwnerId = this.GuestUser.Id,
-                    BoardId = this.OpenBoard.Id
-                },
-                new Task()
-                {
-                    Id = 2,
-                    Title = "Android Client App",
-                    Description = "Create Android client app for the TaskBoard RESTful API",
-                    CreatedOn = DateTime.Now.AddMonths(-5),
-                    OwnerId = this.GuestUser.Id,
-                    BoardId = this.OpenBoard.Id
-                },
-                new Task()
-                {
-                    Id = 3,
-                    Title = "Desktop Client App",
-                    Description = "Create Windows Forms desktop app client for the TaskBoard RESTful API",
-                    CreatedOn = DateTime.Now.AddMonths(-1),
-                    OwnerId = this.GuestUser.Id,
-                    BoardId = this.InProgressBoard.Id
-                },
-                new Task()
-                {
-                    Id = 4,
-                    Title = "Create Tasks",
-                    Description = "Implement [Create Task] page for adding new tasks",
-                    CreatedOn = DateTime.Now.AddYears(-1),
-                    OwnerId = this.GuestUser.Id,
-                    BoardId = this.DoneBoard.Id
-                });
-
+                builder
+                    .Entity<Task>()
+                    .HasData(new Task()
+                    {
+                        Id = 1,
+                        Title = "Improve CSS styles",
+                        Description = "Implement better styling for all public pages",
+                        CreatedOn = DateTime.Now.AddDays(-200),
+                        OwnerId = this.GuestUser.Id,
+                        BoardId = this.OpenBoard.Id
+                    },
+                    new Task()
+                    {
+                        Id = 2,
+                        Title = "Android Client App",
+                        Description = "Create Android client app for the TaskBoard RESTful API",
+                        CreatedOn = DateTime.Now.AddMonths(-5),
+                        OwnerId = this.GuestUser.Id,
+                        BoardId = this.OpenBoard.Id
+                    },
+                    new Task()
+                    {
+                        Id = 3,
+                        Title = "Desktop Client App",
+                        Description = "Create Windows Forms desktop app client for the TaskBoard RESTful API",
+                        CreatedOn = DateTime.Now.AddMonths(-1),
+                        OwnerId = this.GuestUser.Id,
+                        BoardId = this.InProgressBoard.Id
+                    },
+                    new Task()
+                    {
+                        Id = 4,
+                        Title = "Create Tasks",
+                        Description = "Implement [Create Task] page for adding new tasks",
+                        CreatedOn = DateTime.Now.AddYears(-1),
+                        OwnerId = this.GuestUser.Id,
+                        BoardId = this.DoneBoard.Id
+                    });
+            }
+                
             base.OnModelCreating(builder);
         }
 
