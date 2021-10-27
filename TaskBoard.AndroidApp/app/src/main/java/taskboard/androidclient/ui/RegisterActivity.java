@@ -11,9 +11,6 @@ import android.widget.EditText;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import javax.mail.internet.AddressException;
-import javax.mail.internet.InternetAddress;
-
 import taskboard.androidclient.R;
 
 public class RegisterActivity extends AppCompatActivity {
@@ -82,10 +79,9 @@ public class RegisterActivity extends AppCompatActivity {
             errors.append("Email field is required.");
         }
         else {
-            try {
-                InternetAddress emailAddr = new InternetAddress(email);
-                emailAddr.validate();
-            } catch (AddressException ex) {
+            var result = isValidEmailAddress(email);
+            if(!result)
+            {
                 errors.append(System.lineSeparator());
                 errors.append("Email field must have a valid email address.");
             }
@@ -126,5 +122,12 @@ public class RegisterActivity extends AppCompatActivity {
         }
 
         return  errors.toString();
+    }
+
+    private boolean isValidEmailAddress(String email) {
+        String ePattern = "^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$";
+        java.util.regex.Pattern p = java.util.regex.Pattern.compile(ePattern);
+        java.util.regex.Matcher m = p.matcher(email);
+        return m.matches();
     }
 }
