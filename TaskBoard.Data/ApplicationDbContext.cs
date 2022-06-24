@@ -83,7 +83,7 @@ namespace TaskBoard.Data
                         BoardId = this.DoneBoard.Id
                     });
             }
-                
+
             base.OnModelCreating(builder);
         }
 
@@ -94,9 +94,9 @@ namespace TaskBoard.Data
             this.GuestUser = new User()
             {
                 UserName = "guest",
-                NormalizedUserName = "guest",
+                NormalizedUserName = "GUEST",
                 Email = "guest@mail.com",
-                NormalizedEmail = "guest@mail.com",
+                NormalizedEmail = "GUEST@MAIl.COM",
                 FirstName = "Guest",
                 LastName = "User",
             };

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq;
 using System.Security.Claims;
-using System.Globalization;
 using System.Collections.Generic;
 
 using TaskBoard.Data;
@@ -27,19 +26,19 @@ namespace TaskBoard.WebApp.Controllers
             var task = this.dbContext
                 .Tasks
                 .Where(t => t.Id == id)
-                .Select(t => new TaskDetailsViewModel() 
-                { 
+                .Select(t => new TaskDetailsViewModel()
+                {
                     Id = t.Id,
                     Title = t.Title,
                     Description = t.Description,
-                    CreatedOn = t.CreatedOn.ToString("dd/MM/yyyy HH:mm", CultureInfo.InvariantCulture),
+                    CreatedOn = t.CreatedOn.ToString("dd/MM/yyyy HH:mm"),
                     Board = t.Board.Name,
                     Owner = t.Owner.UserName
                 })
                 .FirstOrDefault();
 
 
-            if(task == null)
+            if (task == null)
             {
                 return BadRequest();
             }
@@ -214,15 +213,21 @@ namespace TaskBoard.WebApp.Controllers
 
             var tasks = this.dbContext
                 .Tasks
-                .Where(t => t.Title.Contains(model.Keyword) 
-                    || t.Description.Contains(model.Keyword))
-                .Select(t => new TaskViewModel() 
-                { 
+                .Select(t => new TaskViewModel()
+                {
                     Id = t.Id,
                     Title = t.Title,
                     Description = t.Description,
                     Owner = t.Owner.UserName
                 });
+
+            var keyword = model.Keyword == null ? string.Empty : model.Keyword.Trim().ToLower();
+            if (!String.IsNullOrEmpty(keyword) && !String.IsNullOrEmpty(keyword))
+            {
+                tasks = tasks
+                .Where(t => t.Title.ToLower().Contains(keyword)
+                    || t.Description.ToLower().Contains(keyword));
+            }
 
             model.Tasks = tasks;
 
@@ -238,7 +243,7 @@ namespace TaskBoard.WebApp.Controllers
                     Name = b.Name
                 });
 
-        private string GetUserId() 
+        private string GetUserId()
             => this.User.FindFirstValue(ClaimTypes.NameIdentifier);
     }
 }
