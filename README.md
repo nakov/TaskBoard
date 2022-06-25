@@ -3,18 +3,21 @@
   - Default user credentials: **guest** / **guest**
 
 ## TaskBoard Web App
-The ASP.NET Core app "Task Board" holds a board of tasks (in Trello style). Each task consists of title + description. Tasks are organized in boards, which are displayed as columns (sections): Open, In Progress, Done. 
+The ASP.NET Core app "Task Board" holds a board of tasks (in Trello style). Each task consists of title + description. Tasks are organized in boards, which are displayed as columns (sections): Open, In Progress, Done.
+
+Live demo in Replit: [TaskBoard Web App](https://taskboard-web-app.softuniorg.repl.co)
 * Technologies: .NET 5, ASP.NET MVC Core, Entity Framework Core, MS SQL Server
 * The app supports the following operations:
- - Home page (view tasks count + menu): `/`
- - View the boards with tasks: `/Boards`
- - Search tasks by keyword: `/Tasks/Search`
- - View task details (by id): `/Tasks/Details/:id`
- - Add new task (title + description + board): `/Tasks/Create`
- - Edit task / move to board: `/Tasks/Edit/:id`
- - Delete task: `/Tasks/Delete/:id`
+   - Home page (view tasks count + menu): `/`
+   - View the boards with tasks: `/Boards`
+   - Search tasks by keyword: `/Tasks/Search`
+   - View task details (by id): `/Tasks/Details/:id`
+   - Add new task (title + description + board): `/Tasks/Create`
+   - Edit task / move to board: `/Tasks/Edit/:id`
+   - Delete task: `/Tasks/Delete/:id`
 
 ## TaskBoard RESTful API
+Live demo in Replit: [TaskBoard Web API](https://taskboard-web-api.softuniorg.repl.co)
 
 The following endpoints are supported:
  - `GET /api` - list all API endpoints
